@@ -1,0 +1,1 @@
+Here are some basics that I think is a must to learn what is going on but I do not want to put them into a specific folder.
