@@ -115,3 +115,4 @@ Encoder-Only 结构 **只包含 Transformer Encoder，没有 Decoder**。
 | **文本相似度** | Sentence-BERT (S-BERT) |
 | **搜索（向量检索）** | ColBERT |
 | **问答（非生成）** | DPR (Dense Passage Retrieval) |
+
