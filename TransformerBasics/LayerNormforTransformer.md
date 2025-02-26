@@ -114,3 +114,39 @@ class TransformerLayer(nn.Module):
 
         return x
 ```
+
+
+## What happened in nn.MultiheadAttention(embed_dim, num_heads)?
+The nn.MultiheadAttention module implements multi-head self-attention as used in the Transformer model.
+```python
+nn.MultiheadAttention(embed_dim, num_heads)
+```
+where,
+- embed_dim=d_model: The dimensionality of the input embeddings (i.e., the size of each token vector).
+- num_heads: The number of attention heads.
+
+
+When nn.MultiheadAttention(embed_dim=d_model, num_heads=8) is initialized, it does the following:
+
+- Splits the embedding dimension into num_heads independent attention heads.
+
+    - Each head will have a dimension of: \frac{\text{embed_dim}}{\text{num_heads}}
+    - If d_model = 512 and num_heads = 8, then each head operates on vectors of size: $512/8=64$
+
+- Creates learnable weight matrices for **Query**, **Key**, and **Value**:
+    - Each head has its own linear projection matrices: $W_Q$, $W_K$, and $W_V$
+    - The shape of these matrices: $[embed_dim, embed_dim]$
+- Computes Attention Scores:
+    - For each head:
+    $$
+    \text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+    $$
+    - Each head attends to different positions in the sequence.
+
+- Concatenates Head Outputs:
+    The outputs from all attention heads are concatenated back into a $d_{model}$ dimension vector.
+
+-  Apply Final Transformation:
+    - A final projection matrix (W_O) transforms the concatenated attention output.
+
+
